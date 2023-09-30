@@ -18,4 +18,4 @@ If you are curious about my thought process or what I have been working for this
 
 Check out the [How to get started?](https://github.com/nhantran3395/scrapper/wiki/%5BGuide%5D-How-to-get-started%3F) page on guide to set up and run Scrapper on your local
 
-Check out the [The main challenges and approaches](https://github.com/nhantran3395/scrapper/wiki/%5BDesign%5D-The-main-challenges-and-approaches) page ton find out how I design and solve for the technical challenges 
+Check out the [The main challenges and approaches](https://github.com/nhantran3395/scrapper/wiki/%5BDesign%5D-The-main-challenges-and-approaches) page to find out how I design and solve for the technical challenges 
