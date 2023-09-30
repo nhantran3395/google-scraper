@@ -1,22 +1,17 @@
 {
-  "name": "scrapper",
-  "version": "0.0.1",
-  "description": "Web Scrapper UI & API",
-  "main": "index.js",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/nhantran3395/scrapper.git"
+  "devDependencies": {
+    "eslint": "^8.48.0",
+    "prettier": "^3.0.3",
+    "tsconfig": "workspace:*",
+    "turbo": "latest"
   },
-  "keywords": [
-    "Scrapper"
-  ],
-  "author": "Nhan Tran https://github.com/nhantran3395",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/nhantran3395/scrapper/issues"
-  },
-  "homepage": "https://github.com/nhantran3395/scrapper#readme"
+  "packageManager": "pnpm@8.6.10",
+  "name": "scrapper"
 }
