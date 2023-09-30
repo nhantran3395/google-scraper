@@ -1,3 +1,6 @@
 node_modules
 DS_Store
 .idea
+# internal files while working on the application that shall not be committed
+notes
+captures
