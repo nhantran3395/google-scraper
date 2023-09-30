@@ -10,4 +10,9 @@ module.exports = {
     "<rootDir>/dist",
   ],
   preset: "ts-jest",
+  collectCoverage: true,
+  collectCoverageFrom: ["src/**/*.ts"],
+  coverageDirectory: "coverage",
+  coveragePathIgnorePatterns: ["/node_modules/"],
+  coverageProvider: "v8",
 };

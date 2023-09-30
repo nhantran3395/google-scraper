@@ -1,0 +1,26 @@
+name: 'run-unit-test-web'
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js and install NPM packages
+        uses: ./.github/actions/setup
+
+      - name: Run unit tests
+        run: cd ./apps/web && npm test
+
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-report
+          path: ./web/coverage
