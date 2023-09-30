@@ -1,5 +1,19 @@
 {
-  "private": true,
+  "name": "scrapper",
+  "description": "Web Scrapper UI & API",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nhantran3395/scrapper.git"
+  },
+  "keywords": [
+    "Scrapper"
+  ],
+  "author": "Nhan Tran https://github.com/nhantran3395",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nhantran3395/scrapper/issues"
+  },
+  "homepage": "https://github.com/nhantran3395/scrapper#readme",
   "scripts": {
     "build": "turbo build",
     "clean": "turbo clean",

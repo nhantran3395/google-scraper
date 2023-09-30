@@ -11,9 +11,6 @@ export const createServer = (): Express => {
     .use(urlencoded({ extended: true }))
     .use(json())
     .use(cors())
-    .get("/message/:name", (req, res) => {
-      return res.json({ message: `hello ${req.params.name}` });
-    })
     .get("/status", (_, res) => {
       return res.json({ ok: true });
     });

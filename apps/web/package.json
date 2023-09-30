@@ -1,5 +1,5 @@
 {
-  "name": "storefront",
+  "name": "web",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -14,8 +14,7 @@
     "logger": "*",
     "next": "^13.4.19",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "ui": "*"
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "^13.4.19",
