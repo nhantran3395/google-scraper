@@ -34,5 +34,8 @@
   "workspaces": [
     "apps/*",
     "packages/*"
-  ]
+  ],
+  "engines": {
+    "node": ">=18"
+  }
 }
