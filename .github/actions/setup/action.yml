@@ -16,4 +16,4 @@ runs:
 
     - name: Install dependencies
       shell: bash
-      run: cd ./apps/api && npm ci
+      run: npm ci
