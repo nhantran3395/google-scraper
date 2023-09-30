@@ -15,7 +15,6 @@
     "preset": "jest-presets/jest/browser"
   },
   "dependencies": {
-    "logger": "*",
     "next": "^13.4.19",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
