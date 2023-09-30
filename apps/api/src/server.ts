@@ -3,6 +3,8 @@ import express, { type Express } from "express";
 import morgan from "morgan";
 import cors from "cors";
 
+import { registerHandler, tokenMiddleware, loginHandler } from "./modules/auth";
+
 export const createServer = (): Express => {
   const app = express();
   app
@@ -13,6 +15,13 @@ export const createServer = (): Express => {
     .use(cors())
     .get("/status", (_, res) => {
       return res.json({ ok: true });
+    })
+    .post("/login", loginHandler)
+    .post("/register", registerHandler)
+    .get("/keywords", tokenMiddleware, (_req, res) => {
+      res.json({
+        ok: true,
+      });
     });
 
   return app;
