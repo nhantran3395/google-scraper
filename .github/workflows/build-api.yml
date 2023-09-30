@@ -17,4 +17,4 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Build API
-        run: cd ./apps/web && npm run build
+        run: cd ./apps/api && npm run build
