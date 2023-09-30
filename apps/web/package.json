@@ -8,7 +8,11 @@
     "dev": "next dev -p 3002",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
-    "start": "next start"
+    "start": "next start",
+    "test": "jest --detectOpenHandles"
+  },
+  "jest": {
+    "preset": "jest-presets/jest/browser"
   },
   "dependencies": {
     "logger": "*",
@@ -22,6 +26,7 @@
     "@types/react": "^18.2.21",
     "@types/react-dom": "^18.2.7",
     "eslint-config-custom": "*",
+    "jest-presets": "*",
     "tsconfig": "*",
     "typescript": "^5.2.2"
   }
