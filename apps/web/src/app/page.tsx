@@ -9,10 +9,7 @@ export default function Store(): JSX.Element {
 
   return (
     <div className="container">
-      <h1 className="title">
-        Store <br />
-        <span>Scrapper</span>
-      </h1>
+      <h1 className="title">Scrapper</h1>
     </div>
   );
 }
