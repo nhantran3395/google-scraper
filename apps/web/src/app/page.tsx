@@ -5,13 +5,13 @@ export const metadata = {
 };
 
 export default function Store(): JSX.Element {
-  log("Hey! This is the Scrapper page.");
+  log("Hey! This is the Scrapper UI.");
 
   return (
     <div className="container">
       <h1 className="title">
         Store <br />
-        <span>Kitchen Sink</span>
+        <span>Scrapper</span>
       </h1>
     </div>
   );
