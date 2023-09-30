@@ -12,3 +12,7 @@ dist-ssr
 .cache
 server/dist
 public/dist
+
+## internal files while building projects that should not be committed
+notes
+captures
