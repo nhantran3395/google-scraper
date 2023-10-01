@@ -5,11 +5,13 @@
   "scripts": {
     "start": "node dist/index.js",
     "dev": "tsup --watch --onSuccess \"node dist/index.js\"",
-    "prebuild": "npx prisma generate",
+    "prisma:generate": "npx prisma generate",
+    "prebuild": "npm run prisma:generate",
     "build": "npx tsup",
     "clean": "rm -rf dist",
     "typecheck": "tsc --noEmit",
     "lint": "eslint src/",
+    "pretest": "npm run prisma:generate",
     "test": "jest --detectOpenHandles"
   },
   "jest": {
