@@ -74,7 +74,7 @@ export default function useUser({
     lastName: string;
   }) {
     try {
-      const data = await fetchJson(`${configs.BASE_API_URL}/register`, {
+      await fetchJson(`${configs.BASE_API_URL}/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newUser),
