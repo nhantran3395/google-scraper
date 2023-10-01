@@ -1,4 +1,34 @@
+import { FormEvent } from "react";
+
+import useAuth from "../../lib/use-auth.hook.ts";
+
 export default function LoginContainer() {
+  const { login, isError, errorMsg, resetError } = useAuth({
+    redirectTo: "/",
+    redirectIfFound: true,
+  });
+
+  async function onSubmit(event: FormEvent<HTMLFormElement>): Promise<void> {
+    event.preventDefault();
+
+    const credential = {
+      email: event.currentTarget.email.value || "",
+      password: event.currentTarget.password.value || "",
+    };
+
+    await login(credential);
+  }
+
+  function onChange(event: FormEvent<HTMLFormElement>) {
+    const email = event.currentTarget.email.value || "";
+    const password = event.currentTarget.password.value || "";
+
+    // reset error if user clear input fields
+    if (!email && !password) {
+      resetError();
+    }
+  }
+
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -8,7 +38,7 @@ export default function LoginContainer() {
       </div>
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form className="space-y-6" action="#" method="POST">
+        <form className="space-y-6" onSubmit={onSubmit} onChange={onChange}>
           <div>
             <label
               htmlFor="email"
@@ -48,6 +78,8 @@ export default function LoginContainer() {
               />
             </div>
           </div>
+
+          <span className="text-red-500 text-sm">{errorMsg}</span>
 
           <div>
             <button

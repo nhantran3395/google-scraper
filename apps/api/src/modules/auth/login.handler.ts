@@ -36,5 +36,8 @@ export default async function loginHandler(req: Request, res: Response) {
     ok: true,
     message: SUCCESS_MESSAGE.LOGIN_SUCCESS,
     token: generateToken(email, jwtSecret),
+    email: user.email,
+    firstName: user.firstName,
+    lastName: user.lastName,
   });
 }

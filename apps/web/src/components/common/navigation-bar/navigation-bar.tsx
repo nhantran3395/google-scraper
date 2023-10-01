@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { Fragment, MouseEvent } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
@@ -17,7 +17,16 @@ function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function NavigationBar() {
+type NavigationBarProps = {
+  signOut: () => void;
+};
+
+export default function NavigationBar({ signOut }: NavigationBarProps) {
+  function onSignOutClick(event: MouseEvent<HTMLAnchorElement>) {
+    event.preventDefault();
+    signOut();
+  }
+
   return (
     <Disclosure as="nav" className={"bg-indigo-600"}>
       {({ open }) => (
@@ -82,7 +91,8 @@ export default function NavigationBar() {
                           <Menu.Item key={item.name}>
                             {({ active }) => (
                               <a
-                                href={item.href}
+                                href={"#"}
+                                onClick={onSignOutClick}
                                 className={classNames(
                                   active ? "bg-gray-100" : "",
                                   "block px-4 py-2 text-sm text-gray-700"
@@ -156,7 +166,8 @@ export default function NavigationBar() {
                   <Disclosure.Button
                     key={item.name}
                     as="a"
-                    href={item.href}
+                    href={"#"}
+                    onClick={onSignOutClick}
                     className="block rounded-md px-3 py-2 text-base text-white hover:bg-indigo-700"
                   >
                     {item.name}
