@@ -15,6 +15,8 @@
     "preset": "jest-presets/jest/browser"
   },
   "dependencies": {
+    "@headlessui/react": "^1.7.17",
+    "@heroicons/react": "^2.0.18",
     "next": "^13.4.19",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
@@ -24,8 +26,11 @@
     "@types/node": "^17.0.12",
     "@types/react": "^18.2.21",
     "@types/react-dom": "^18.2.7",
+    "autoprefixer": "^10.4.16",
     "eslint-config-custom": "*",
     "jest-presets": "*",
+    "postcss": "^8.4.31",
+    "tailwindcss": "^3.3.3",
     "tsconfig": "*",
     "typescript": "^5.2.2"
   }
