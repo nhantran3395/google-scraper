@@ -11,7 +11,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <Head>
         <title>Scrapper</title>
         <meta name="description" content="Scrapper Web" />
-        <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+        <link rel="stylesheet" href={"https://rsms.me/inter/inter.css"} />
       </Head>
       <PageLayout>
         <Component {...pageProps} />
