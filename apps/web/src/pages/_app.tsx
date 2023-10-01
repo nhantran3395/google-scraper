@@ -1,7 +1,7 @@
 import type { AppProps } from "next/app";
 import Head from "next/head";
 
-import PageLayout from "../components/layout";
+import PageLayout from "../components/common/layout";
 
 import "../styles/globals.css";
 

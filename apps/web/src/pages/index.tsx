@@ -1,4 +1,4 @@
-import NavigationBar from "../components/navigation-bar";
+import NavigationBar from "../components/common/navigation-bar";
 
 export default function ScrapperHome() {
   return (
