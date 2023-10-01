@@ -17,6 +17,25 @@ export default function useUser({
   const [errorMsg, setErrorMsg] = useState<string>("");
   const isError = !!errorMsg;
 
+  function handleError(error: unknown) {
+    if (error instanceof FetchError) {
+      console.log(error.data);
+      setErrorMsg(error.data.message);
+    } else {
+      console.error("An unexpected error happened:", error);
+      setErrorMsg("An unexpected error happened");
+    }
+  }
+
+  function updateUser(newUser: User) {
+    LocalStorageService.setUserInfo(newUser);
+    setUser(newUser);
+  }
+
+  function resetError() {
+    setErrorMsg("");
+  }
+
   function signOut() {
     LocalStorageService.invalidateUserInfo();
     setUser(null);
@@ -44,23 +63,28 @@ export default function useUser({
 
       resetError();
     } catch (error) {
-      if (error instanceof FetchError) {
-        console.log(error.data);
-        setErrorMsg(error.data.message);
-      } else {
-        console.error("An unexpected error happened:", error);
-        setErrorMsg("An unexpected error happened");
-      }
+      handleError(error);
     }
   }
 
-  function updateUser(newUser: User) {
-    LocalStorageService.setUserInfo(newUser);
-    setUser(newUser);
-  }
+  async function register(newUser: {
+    email: string;
+    password: string;
+    firstName: string;
+    lastName: string;
+  }) {
+    try {
+      const data = await fetchJson(`${Configs.BASE_API_URL}/register`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newUser),
+      });
 
-  function resetError() {
-    setErrorMsg("");
+      resetError();
+      Router.push("/login");
+    } catch (error) {
+      handleError(error);
+    }
   }
 
   useEffect(() => {
@@ -77,5 +101,5 @@ export default function useUser({
     }
   }, [user, redirectIfFound, redirectTo]);
 
-  return { user, login, signOut, isError, errorMsg, resetError };
+  return { user, login, signOut, register, isError, errorMsg, resetError };
 }

@@ -20,13 +20,7 @@ export default function LoginContainer() {
   }
 
   function onChange(event: FormEvent<HTMLFormElement>) {
-    const email = event.currentTarget.email.value || "";
-    const password = event.currentTarget.password.value || "";
-
-    // reset error if user clear input fields
-    if (!email && !password) {
-      resetError();
-    }
+    resetError();
   }
 
   return (

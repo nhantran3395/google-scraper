@@ -1,4 +1,31 @@
+import { FormEvent } from "react";
+
+import useAuth from "../../lib/use-auth.hook.ts";
+
 export default function RegisterContainer() {
+  const { register, errorMsg, resetError } = useAuth({
+    redirectTo: "/",
+    redirectIfFound: true,
+  });
+
+  async function onSubmit(event: FormEvent<HTMLFormElement>): Promise<void> {
+    event.preventDefault();
+
+    const newUser = {
+      email: event.currentTarget.email.value || "",
+      password: event.currentTarget.password.value || "",
+      firstName: event.currentTarget.firstName.value || "",
+      lastName: event.currentTarget.lastName.value || "",
+    };
+
+    await register(newUser);
+  }
+
+  function onChange(event: FormEvent<HTMLFormElement>) {
+    // reset error if user clear input fields
+    resetError();
+  }
+
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -8,7 +35,7 @@ export default function RegisterContainer() {
       </div>
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form className="space-y-6" action="#" method="POST">
+        <form className="space-y-6" onSubmit={onSubmit} onChange={onChange}>
           <div>
             <label
               htmlFor="email"
@@ -52,7 +79,7 @@ export default function RegisterContainer() {
           <div>
             <div className="flex items-center justify-between">
               <label
-                htmlFor="firstname"
+                htmlFor="firstName"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
                 First name
@@ -60,8 +87,8 @@ export default function RegisterContainer() {
             </div>
             <div className="mt-2">
               <input
-                id="firstname"
-                name="firstname"
+                id="firstName"
+                name="firstName"
                 type="text"
                 required
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -80,14 +107,16 @@ export default function RegisterContainer() {
             </div>
             <div className="mt-2">
               <input
-                id="lasttname"
-                name="lastname"
+                id="lasttName"
+                name="lastName"
                 type="text"
                 required
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
           </div>
+
+          <span className="text-red-500 text-sm">{errorMsg}</span>
 
           <div>
             <button
