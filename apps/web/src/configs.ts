@@ -1,5 +1,5 @@
-const Configs = {
+const configs = {
   BASE_API_URL: process.env.NEXT_PUBLIC_BASE_API_URL || "",
 };
 
-export default Configs;
+export default configs;

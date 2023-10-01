@@ -3,7 +3,7 @@ import Router from "next/router";
 import LocalStorageService from "./local-storage.service";
 import type { User } from "../types";
 import fetchJson, { FetchError } from "./fetch-json.ts";
-import Configs from "../configs.ts";
+import configs from "../configs.ts";
 import { validateLoginResponse } from "../types";
 
 export default function useUser({
@@ -43,7 +43,7 @@ export default function useUser({
 
   async function login(credential: { email: string; password: string }) {
     try {
-      const data = await fetchJson(`${Configs.BASE_API_URL}/login`, {
+      const data = await fetchJson(`${configs.BASE_API_URL}/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(credential),
@@ -74,7 +74,7 @@ export default function useUser({
     lastName: string;
   }) {
     try {
-      const data = await fetchJson(`${Configs.BASE_API_URL}/register`, {
+      await fetchJson(`${configs.BASE_API_URL}/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newUser),

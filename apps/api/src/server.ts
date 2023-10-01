@@ -1,9 +1,9 @@
 import { json, urlencoded } from "body-parser";
 import express, { type Express } from "express";
 import morgan from "morgan";
-import cors from "cors";
 
 import { registerHandler, tokenMiddleware, loginHandler } from "./modules/auth";
+import cors from "./middlewares";
 
 export const createServer = (): Express => {
   const app = express();
@@ -12,7 +12,7 @@ export const createServer = (): Express => {
     .use(morgan("dev"))
     .use(urlencoded({ extended: true }))
     .use(json())
-    .use(cors())
+    .use(cors)
     .get("/status", (_, res) => {
       return res.json({ ok: true });
     })
