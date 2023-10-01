@@ -2,7 +2,7 @@ import NavigationBar from "../components/common/navigation-bar";
 import useUser from "../lib/use-auth.hook.ts";
 
 export default function ScrapperHome() {
-  const { user, signOut } = useUser({
+  const { signOut } = useUser({
     redirectTo: "/login",
   });
 

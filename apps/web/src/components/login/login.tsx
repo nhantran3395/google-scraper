@@ -3,7 +3,7 @@ import { FormEvent } from "react";
 import useAuth from "../../lib/use-auth.hook.ts";
 
 export default function LoginContainer() {
-  const { login, isError, errorMsg, resetError } = useAuth({
+  const { login, errorMsg, resetError } = useAuth({
     redirectTo: "/",
     redirectIfFound: true,
   });
