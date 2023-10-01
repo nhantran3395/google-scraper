@@ -1,5 +1,5 @@
 import { createServer } from "./server";
-import { log } from "./logger.ts";
+import { log } from "./infra/logger.ts";
 
 const port = process.env.PORT || 5001;
 const server = createServer();
