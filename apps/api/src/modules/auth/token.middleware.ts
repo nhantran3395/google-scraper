@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 
 import { checkToken } from "./auth.helper";
 import { ERROR_MESSAGE } from "../../messages.ts";
-import { CONFIGS } from "../../configs.ts";
+import { configs } from "../../configs.ts";
 
 declare module "express-serve-static-core" {
   interface Request {
@@ -35,7 +35,7 @@ export default function tokenMiddleware(
     return;
   }
 
-  const secret = CONFIGS.JWT_SECRET;
+  const secret = configs.JWT_SECRET;
   let payload: string | jwt.JwtPayload = {};
 
   try {
