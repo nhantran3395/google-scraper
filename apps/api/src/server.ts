@@ -3,7 +3,7 @@ import express, { type Express } from "express";
 import morgan from "morgan";
 
 import { registerHandler, tokenMiddleware, loginHandler } from "./modules/auth";
-import cors from "./middlewares";
+import cors, { fileUpload } from "./middlewares";
 
 export const createServer = (): Express => {
   const app = express();
@@ -18,7 +18,14 @@ export const createServer = (): Express => {
     })
     .post("/login", loginHandler)
     .post("/register", registerHandler)
-    .get("/keywords", tokenMiddleware, (_req, res) => {
+    .use(tokenMiddleware)
+    .get("/keywords", (_req, res) => {
+      res.json({
+        ok: true,
+      });
+    })
+    .post("/keywords", fileUpload, (req, res) => {
+      console.log(req.file?.buffer.toString().split("\n").slice(0, -1));
       res.json({
         ok: true,
       });
