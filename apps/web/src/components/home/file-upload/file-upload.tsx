@@ -5,7 +5,7 @@ import useFileUpload from "../../../lib/use-file-upload.hook";
 
 export default function FileUpload() {
   const [file, setFile] = useState<unknown>(null);
-  const { errorMsg, upload, resetError } = useFileUpload();
+  const { isError, errorMsg, upload, resetError } = useFileUpload();
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -56,7 +56,11 @@ export default function FileUpload() {
               </>
             ) : (
               <div className={"flex justify-center items-center"}>
-                <span className="ml-2 mt-4 flex text-sm leading-6 text-gray-600 text-center">
+                <span
+                  className={`${
+                    isError ? "text-red-500" : ""
+                  } ml-2 mt-4 flex text-sm leading-6 text-gray-600 text-center`}
+                >
                   {(file as { name: string }).name}
                 </span>
                 <XCircleIcon
