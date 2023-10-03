@@ -9,7 +9,7 @@ export default function FileUpload() {
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    upload(file);
+    await upload(file);
   }
 
   function onChange(event: FormEvent<HTMLFormElement>) {
@@ -69,13 +69,15 @@ export default function FileUpload() {
         </div>
       </div>
 
-      <button
-        type="submit"
-        className="flex w-36 justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-      >
-        Scrape
-      </button>
-      <span className={"text-red-500 text-sm"}>{errorMsg}</span>
+      <div className={"flex flex-row items-end gap-x-4"}>
+        <button
+          type="submit"
+          className="flex w-36 justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+        >
+          Scrape
+        </button>
+        <span className={"text-red-500 text-sm"}>{errorMsg}</span>
+      </div>
     </form>
   );
 }
