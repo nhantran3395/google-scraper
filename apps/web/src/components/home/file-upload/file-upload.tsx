@@ -1,44 +1,26 @@
 import { FormEvent, useState } from "react";
 import { DocumentTextIcon, XCircleIcon } from "@heroicons/react/24/solid";
 
-import fetchJson from "../../../lib/fetch-json";
-import LocalStorageService from "../../../lib/local-storage.service.ts";
-import configs from "../../../configs.ts";
+import useFileUpload from "../../../lib/use-file-upload.hook";
 
 export default function FileUpload() {
   const [file, setFile] = useState<unknown>(null);
+  const { errorMsg, upload, resetError } = useFileUpload();
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-
-    if (!file) {
-      return;
-    }
-
-    const formData = new FormData();
-    // @ts-ignore
-    formData.append("file", file);
-
-    try {
-      await fetchJson(`${configs.BASE_API_URL}/keywords`, {
-        method: "POST",
-        body: formData,
-        headers: {
-          Authorization: `Bearer ${LocalStorageService.getUserInfo()?.token}`,
-        },
-      });
-    } catch (error) {
-      console.error("an unexpected error happened");
-    }
+    upload(file);
   }
 
   function onChange(event: FormEvent<HTMLFormElement>) {
     const file = event.currentTarget.fileUpload.files[0];
     setFile(file);
+    resetError();
   }
 
   function clearFile() {
     setFile(null);
+    resetError();
   }
 
   return (
@@ -93,6 +75,7 @@ export default function FileUpload() {
       >
         Scrape
       </button>
+      <span className={"text-red-500 text-sm"}>{errorMsg}</span>
     </form>
   );
 }

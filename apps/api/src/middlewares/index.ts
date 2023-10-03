@@ -1,2 +1,3 @@
 export { default } from "./cors.middleware";
-export { fileUpload } from "./file-upload.middleware";
+export { handleFileUpload } from "./file-upload.middleware";
+export { handleError } from "./error.middleware.ts";

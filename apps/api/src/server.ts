@@ -3,7 +3,7 @@ import express, { type Express } from "express";
 import morgan from "morgan";
 
 import { registerHandler, tokenMiddleware, loginHandler } from "./modules/auth";
-import cors, { fileUpload } from "./middlewares";
+import cors, { handleFileUpload, handleError } from "./middlewares";
 
 export const createServer = (): Express => {
   const app = express();
@@ -24,12 +24,13 @@ export const createServer = (): Express => {
         ok: true,
       });
     })
-    .post("/keywords", fileUpload, (req, res) => {
+    .post("/keywords", handleFileUpload, (req, res) => {
       console.log(req.file?.buffer.toString().split("\n").slice(0, -1));
       res.json({
         ok: true,
       });
-    });
+    })
+    .use(handleError);
 
   return app;
 };

@@ -6,7 +6,7 @@ import multer, {
 
 import { type Request } from "express";
 
-import { ERROR_MESSAGE } from "../messages.ts";
+import { FileTypeNotSupportedError } from "../errors.ts";
 
 function csvFilter(
   _req: Request,
@@ -14,7 +14,7 @@ function csvFilter(
   callback: FileFilterCallback
 ) {
   if (file.mimetype !== "text/csv") {
-    callback(new Error(ERROR_MESSAGE.FILE_TYPE_NOT_SUPPORTED));
+    callback(new FileTypeNotSupportedError());
   }
 
   callback(null, file.mimetype === "text/csv");
@@ -32,4 +32,4 @@ const options: Options = {
   fileFilter: csvFilter,
 };
 
-export const fileUpload = multer(options).single("file");
+export const handleFileUpload = multer(options).single("file");
