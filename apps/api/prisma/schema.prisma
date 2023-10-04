@@ -27,7 +27,7 @@ model Keyword {
   keywordId     String   @id @default(uuid()) @map("keyword_id")
   createdAt     DateTime @default(now()) @map("created_at")
   updatedAt     DateTime @updatedAt @map("updated_at")
-  adwordsCount  Int      @map("ad_words_count")
+  adWordsCount  Int      @map("ad_words_count")
   resultCount   Int      @map("result_count")
   linkCount     Int      @map("link_count")
   rawHtmlResult Bytes    @map("raw_html_result")
@@ -42,7 +42,7 @@ model Upload {
   uploadId     String    @id @default(uuid()) @map("upload_id")
   createdAt    DateTime  @default(now()) @map("created_at")
   updatedAt    DateTime  @updatedAt @map("updated_at")
-  name         String    @unique
+  name         String
   keywordCount Int       @map("keyword_count")
   user         User?     @relation(fields: [userId], references: [userId])
   userId       String    @map("user_id")
