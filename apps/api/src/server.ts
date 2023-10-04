@@ -2,8 +2,10 @@ import { json, urlencoded } from "body-parser";
 import express, { type Express } from "express";
 import morgan from "morgan";
 
-import { registerHandler, tokenMiddleware, loginHandler } from "./modules/auth";
-import cors, { handleFileUpload, handleError } from "./middlewares";
+import cors, { handleError } from "./middlewares";
+import { loginHandler, registerHandler, tokenMiddleware } from "./routes/auth";
+import keywordsRouter from "./routes/keywords";
+import uploadsRouter from "./routes/uploads";
 
 export const createServer = (): Express => {
   const app = express();
@@ -19,17 +21,8 @@ export const createServer = (): Express => {
     .post("/login", loginHandler)
     .post("/register", registerHandler)
     .use(tokenMiddleware)
-    .get("/keywords", (_req, res) => {
-      res.json({
-        ok: true,
-      });
-    })
-    .post("/keywords", handleFileUpload, (req, res) => {
-      console.log(req.file?.buffer.toString().split("\n").slice(0, -1));
-      res.json({
-        ok: true,
-      });
-    })
+    .use("/uploads", uploadsRouter)
+    .use("/keywords", keywordsRouter)
     .use(handleError);
 
   return app;
