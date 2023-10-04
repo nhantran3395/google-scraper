@@ -28,7 +28,7 @@ model Keyword {
   createdAt     DateTime @default(now()) @map("created_at")
   updatedAt     DateTime @updatedAt @map("updated_at")
   adWordsCount  Int      @map("ad_words_count")
-  resultCount   Int      @map("result_count")
+  resultCount   BigInt   @map("result_count")
   linkCount     Int      @map("link_count")
   rawHtmlResult Bytes    @map("raw_html_result")
   body          String   @db.VarChar(255)
