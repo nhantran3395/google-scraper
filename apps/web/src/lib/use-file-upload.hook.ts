@@ -20,7 +20,7 @@ export default function useFileUpload() {
     formData.append("file", file);
 
     try {
-      await fetchJson(`${configs.BASE_API_URL}/keywords`, {
+      await fetchJson(`${configs.BASE_API_URL}/uploads`, {
         method: "POST",
         body: formData,
         headers: {

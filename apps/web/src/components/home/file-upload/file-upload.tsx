@@ -34,12 +34,12 @@ export default function FileUpload() {
             />
             {!file ? (
               <>
-                <div className="mt-4 flex text-sm leading-6 text-gray-600">
+                <div className="mt-4 ml-4 flex text-sm leading-6 text-gray-600">
                   <label
                     htmlFor="fileUpload"
                     className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
                   >
-                    <span>Upload a file</span>
+                    <span>Choose a file</span>
                     <input
                       id="fileUpload"
                       name="fileUpload"
@@ -51,7 +51,7 @@ export default function FileUpload() {
                   <p className="pl-1">or drag and drop</p>
                 </div>
                 <p className="text-xs leading-5 text-gray-600">
-                  CSV file up to 1KB
+                  CSV file with 1 to 100 keywords, up to 1KB
                 </p>
               </>
             ) : (
@@ -78,7 +78,7 @@ export default function FileUpload() {
           type="submit"
           className="flex w-36 justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
         >
-          Scrape
+          Upload
         </button>
         <span className={"text-red-500 text-sm"}>{errorMsg}</span>
       </div>

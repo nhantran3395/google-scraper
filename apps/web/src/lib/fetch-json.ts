@@ -1,3 +1,5 @@
+import LocalStorageService from "./local-storage.service";
+
 export class FetchError extends Error {
   response: Response;
   data: {
@@ -49,4 +51,18 @@ export default async function fetchJson<JSON = unknown>(
     response,
     data,
   });
+}
+
+export async function fetchJsonAuthenticated<JSON = unknown>(
+  input: RequestInfo,
+  init?: RequestInit
+): Promise<JSON> {
+  const newInit = {
+    ...init,
+    headers: {
+      Authorization: `Bearer ${LocalStorageService.getUserInfo()?.token}`,
+    },
+  };
+
+  return fetchJson(input, init);
 }

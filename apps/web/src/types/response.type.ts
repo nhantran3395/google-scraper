@@ -1,4 +1,5 @@
-import { type SearchResult } from "./search-result.type";
+import { type Upload } from "./upload.type";
+import { type Keyword } from "./keyword.type";
 
 export type LoginResponse = {
   ok: boolean;
@@ -20,19 +21,17 @@ export function validateLoginResponse(data: any): data is LoginResponse {
   );
 }
 
-export type FileUploadResponse = {
+export type GetUploadsResponse = {
   ok: boolean;
-  data: Array<SearchResult>;
+  uploads: Array<Upload>;
 };
 
-export function validateFileUploadResponse(
-  data: any
-): data is FileUploadResponse {
-  console.log("validating file upload response");
+export type GetKeywordsResponse = {
+  ok: boolean;
+  keywords: Array<Keyword>;
+};
 
-  return (
-    data.hasOwnProperty("ok") &&
-    data.hasOwnProperty("data") &&
-    Array.isArray(data.data)
-  );
-}
+export type GetKeywordResponse = {
+  ok: boolean;
+  keyword: Keyword;
+};
