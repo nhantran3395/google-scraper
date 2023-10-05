@@ -2,8 +2,8 @@ import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 
 import { checkToken } from "./auth.helper";
-import { ERROR_MESSAGE } from "../../messages.ts";
-import { configs } from "../../configs.ts";
+import { ERROR_MESSAGE } from "../../messages";
+import { configs } from "../../configs";
 
 declare module "express-serve-static-core" {
   interface Request {
