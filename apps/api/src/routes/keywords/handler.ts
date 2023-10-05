@@ -1,36 +1,34 @@
 import { Router } from "express";
 
 import * as keywordRepository from "./keyword.repository";
-import { type ProcessedKeywordSearchResult } from "../../types";
 
-const keywordsRouter = Router();
+const router = Router();
 
-keywordsRouter.get("", async (req, res) => {
+router.get("", async (req, res, next) => {
   const uploadId = (req.query.uploadId as string) || null;
 
-  let rawKeywords: Array<ProcessedKeywordSearchResult> = [];
-
   try {
-    rawKeywords = await keywordRepository.getAll(uploadId);
+    const rawKeywords = await keywordRepository.getAll(uploadId);
+
+    const keywords = rawKeywords.map((raw) => {
+      return {
+        ...raw,
+        resultCount: Number(raw.resultCount),
+        rawHtmlResult: raw.rawHtmlResult.toString(),
+      };
+    });
+
+    res.json({
+      ok: true,
+      keywords,
+    });
   } catch (error) {
-    console.log(error);
+    console.error(error);
+    next(error);
   }
-
-  const keywords = rawKeywords.map((raw) => {
-    return {
-      ...raw,
-      resultCount: Number(raw.resultCount),
-      rawHtmlResult: raw.rawHtmlResult.toString(),
-    };
-  });
-
-  res.json({
-    ok: true,
-    keywords,
-  });
 });
 
-keywordsRouter.get("/:keywordId", async (req, res) => {
+router.get("/:keywordId", async (req, res, next) => {
   try {
     const rawKeyword = await keywordRepository.getOne(req.params.keywordId);
 
@@ -55,7 +53,8 @@ keywordsRouter.get("/:keywordId", async (req, res) => {
     });
   } catch (error) {
     console.log(error);
+    next(error);
   }
 });
 
-export default keywordsRouter;
+export default router;

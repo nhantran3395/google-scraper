@@ -28,6 +28,7 @@
     "logger": "*",
     "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
+    "user-agents": "^1.0.1444",
     "workerpool": "^6.5.0"
   },
   "devDependencies": {
@@ -41,6 +42,7 @@
     "@types/multer": "^1.4.8",
     "@types/node": "^20.5.9",
     "@types/supertest": "^2.0.12",
+    "@types/user-agents": "^1.0.2",
     "@types/workerpool": "^6.4.4",
     "eslint-config-custom": "*",
     "jest-presets": "*",

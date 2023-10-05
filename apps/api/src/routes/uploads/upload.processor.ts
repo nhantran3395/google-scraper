@@ -1,24 +1,47 @@
 import * as cheerio from "cheerio";
+import UserAgent from "user-agents";
 
 import {
-  ProcessedKeywordSearchResult,
-  RawKeywordSearchResult,
+  type ProcessedKeywordResult,
+  type RawKeywordResult,
 } from "../../types";
 
-export async function scrape(
+type KeywordWithAgent = {
+  keyword: string;
+  agent: string;
+};
+
+export function prepareAgents(
   keywords: Array<string>
-): Promise<Array<RawKeywordSearchResult>> {
+): Array<KeywordWithAgent> {
+  return keywords.map((keyword) => {
+    return {
+      keyword,
+      agent: new UserAgent().toString(),
+    };
+  });
+}
+
+export async function scrape(
+  keywords: Array<KeywordWithAgent>
+): Promise<Array<RawKeywordResult>> {
   const responses = await Promise.all(
     keywords.map((keyword) => {
       const keywordUrl = `https://google.com/search?hl=en&q=${encodeURIComponent(
-        keyword
+        keyword.keyword
       )}`;
 
-      console.log(keywordUrl);
+      console.info(keywordUrl, keyword.agent);
 
-      return fetch(
-        `http://api.scraperapi.com?api_key=c2d92fd080310fa930cfb871d4ed39cd&url=${keywordUrl}`
-      );
+      const headers = {
+        "User-Agent": keyword.agent,
+      };
+
+      const option = {
+        headers,
+      };
+
+      return fetch(keywordUrl, option);
     })
   );
 
@@ -26,15 +49,15 @@ export async function scrape(
 
   return keywords.map((keyword, index) => {
     return {
-      body: keyword,
+      body: keyword.keyword,
       rawHtmlResult: pages[index],
     };
   });
 }
 
 export function processResult(
-  rawResult: RawKeywordSearchResult
-): ProcessedKeywordSearchResult {
+  rawResult: RawKeywordResult
+): ProcessedKeywordResult {
   const $ = cheerio.load(rawResult.rawHtmlResult);
 
   // string contains number of results

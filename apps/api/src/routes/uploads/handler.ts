@@ -1,61 +1,68 @@
 import { Router } from "express";
 import workerpool from "workerpool";
 
-import { DatabaseClient } from "../../infra";
-
 import { handleFileUpload } from "./upload.middleware";
-import { processResult, scrape } from "./upload.processor";
+import { prepareAgents, processResult, scrape } from "./upload.processor";
+import * as uploadRepository from "./upload.repository";
 
 const pool = workerpool.pool();
 
-const uploadsRouter = Router();
+const router = Router();
 
-uploadsRouter.post("", handleFileUpload, async (req, res) => {
+router.post("", handleFileUpload, async (req, res, next) => {
   const file = req.file;
   const user = req.user;
 
-  if (!user) {
-    throw new Error("user must exist");
-  }
+  if (!user || !file) {
+    res.status(400).json({
+      ok: false,
+      message: "request is invalid",
+    });
 
-  if (!file) {
-    throw new Error("file must not be empty");
+    return;
   }
 
   const keywords = file.buffer.toString().split("\n") || [];
 
   try {
-    const rawResults = await pool.exec(scrape, [keywords]);
+    const rawResults = await pool.exec(scrape, [prepareAgents(keywords)]);
     await pool.terminate();
 
     const processedResults = rawResults.map(processResult);
-
-    await DatabaseClient.upload.create({
-      data: {
-        userId: user.userId,
-        name: file.originalname,
-        keywordCount: keywords.length,
-        keywords: {
-          create: [...processedResults],
-        },
-      },
-    });
+    await uploadRepository.createNew(user.userId, file, processedResults);
 
     res.json({
       ok: true,
     });
   } catch (error) {
     console.error(error);
+    next(error);
   }
 });
 
-uploadsRouter.get("", async (_req, res) => {
-  const uploads = await DatabaseClient.upload.findMany();
+router.get("", async (req, res, next) => {
+  const user = req.user;
 
-  res.json({
-    ok: true,
-    uploads,
-  });
+  if (!user) {
+    res.status(400).json({
+      ok: false,
+      message: "request is invalid",
+    });
+
+    return;
+  }
+
+  try {
+    const uploads = await uploadRepository.getAll(user.userId);
+
+    res.json({
+      ok: true,
+      uploads,
+    });
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
 });
 
-export default uploadsRouter;
+export default router;
