@@ -6,7 +6,7 @@ export async function createNew(
   file: Express.Multer.File,
   keywords: Array<ProcessedKeywordResult>
 ) {
-  DatabaseClient.upload.create({
+  return DatabaseClient.upload.create({
     data: {
       userId: userId,
       name: file.originalname,
