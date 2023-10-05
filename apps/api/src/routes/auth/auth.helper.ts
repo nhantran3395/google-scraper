@@ -9,10 +9,15 @@ export function checkToken(token: string, secret: string) {
   }
 }
 
-export function generateToken(email: string, secret: string): string {
+export function generateToken(
+  email: string,
+  userId: string,
+  secret: string
+): string {
   return jwt.sign(
     {
       email,
+      userId,
     },
     secret
   );

@@ -1,4 +1,4 @@
-import { DatabaseClient } from "../infra";
+import { DatabaseClient } from "../../infra";
 
 export async function getUser(email: string) {
   return await DatabaseClient.user.findUnique({

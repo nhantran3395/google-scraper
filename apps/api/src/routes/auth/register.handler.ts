@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 
 import { hashPassword } from "./auth.helper";
-import { createUser } from "../../repositories";
+import { createUser } from "./user.repository";
 import { ERROR_MESSAGE, SUCCESS_MESSAGE } from "../../messages.ts";
 
 interface UniqueConstraintViolationError {

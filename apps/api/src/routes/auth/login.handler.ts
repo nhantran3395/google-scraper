@@ -1,9 +1,10 @@
 import { Request, Response } from "express";
 
-import { generateToken, comparePassword } from "./auth.helper";
-import { getUser } from "../../repositories";
-import { ERROR_MESSAGE, SUCCESS_MESSAGE } from "../../messages.ts";
+import { ERROR_MESSAGE, SUCCESS_MESSAGE } from "../../messages";
 import { configs } from "../../configs.ts";
+
+import { generateToken, comparePassword } from "./auth.helper";
+import { getUser } from "./user.repository";
 
 export default async function loginHandler(req: Request, res: Response) {
   const { email, password } = req.body;
@@ -35,7 +36,7 @@ export default async function loginHandler(req: Request, res: Response) {
   res.status(200).json({
     ok: true,
     message: SUCCESS_MESSAGE.LOGIN_SUCCESS,
-    token: generateToken(email, jwtSecret),
+    token: generateToken(email, user.userId, jwtSecret),
     email: user.email,
     firstName: user.firstName,
     lastName: user.lastName,

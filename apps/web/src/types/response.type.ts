@@ -1,3 +1,6 @@
+import { type Upload } from "./upload.type";
+import { type Keyword } from "./keyword.type";
+
 export type LoginResponse = {
   ok: boolean;
   token: string;
@@ -17,3 +20,18 @@ export function validateLoginResponse(data: any): data is LoginResponse {
     data.hasOwnProperty("lastName")
   );
 }
+
+export type GetUploadsResponse = {
+  ok: boolean;
+  uploads: Array<Upload>;
+};
+
+export type GetKeywordsResponse = {
+  ok: boolean;
+  keywords: Array<Keyword>;
+};
+
+export type GetKeywordResponse = {
+  ok: boolean;
+  keyword: Keyword;
+};

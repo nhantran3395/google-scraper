@@ -11,26 +11,42 @@ datasource db {
 }
 
 model User {
-  userId    String    @id @default(uuid()) @map("user_id")
-  createdAt DateTime  @default(now()) @map("created_at")
-  updatedAt DateTime  @updatedAt @map("updated_at")
-  email     String    @unique
+  userId    String   @id @default(uuid()) @map("user_id")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  email     String   @unique
   password  String
-  firstName String    @map("first_name")
-  lastName  String    @map("last_name")
-  Keyword   Keyword[]
+  firstName String   @map("first_name")
+  lastName  String   @map("last_name")
+  uploads   Upload[]
+
+  @@map("Users")
 }
 
 model Keyword {
-  keywordId    String   @id @default(uuid()) @map("keyword_id")
-  createdAt    DateTime @default(now()) @map("created_at")
-  updatedAt    DateTime @updatedAt @map("updated_at")
-  adwordsCount Int      @map("adwords_count")
-  resultCount  Int      @map("result_count")
-  searchTime   Decimal  @map("search_time")
-  linkCount    Int      @map("link_count")
-  result       Bytes
-  content      String   @db.VarChar(255)
-  User         User?    @relation(fields: [userId], references: [userId])
-  userId       String   @map("user_id")
+  keywordId     String   @id @default(uuid()) @map("keyword_id")
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+  adWordsCount  Int      @map("ad_words_count")
+  resultCount   BigInt   @map("result_count")
+  linkCount     Int      @map("link_count")
+  rawHtmlResult Bytes    @map("raw_html_result")
+  body          String   @db.VarChar(255)
+  uploadId      String   @map("upload_id")
+  upload        Upload   @relation(fields: [uploadId], references: [uploadId])
+
+  @@map("Keywords")
+}
+
+model Upload {
+  uploadId     String    @id @default(uuid()) @map("upload_id")
+  createdAt    DateTime  @default(now()) @map("created_at")
+  updatedAt    DateTime  @updatedAt @map("updated_at")
+  name         String
+  keywordCount Int       @map("keyword_count")
+  user         User?     @relation(fields: [userId], references: [userId])
+  userId       String    @map("user_id")
+  keywords     Keyword[]
+
+  @@map("Uploads")
 }
