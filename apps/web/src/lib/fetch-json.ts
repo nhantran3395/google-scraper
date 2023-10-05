@@ -64,5 +64,5 @@ export async function fetchJsonAuthenticated<JSON = unknown>(
     },
   };
 
-  return fetchJson(input, init);
+  return fetchJson(input, newInit);
 }
