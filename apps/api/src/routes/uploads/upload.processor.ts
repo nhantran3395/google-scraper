@@ -9,17 +9,17 @@ export async function scrape(
   keywords: Array<string>
 ): Promise<Array<RawKeywordSearchResult>> {
   const responses = await Promise.all(
-    keywords.map((keyword) =>
-      fetch(
-        `https://google.com/search?hl=en&q=${encodeURIComponent(keyword)}`,
-        {
-          headers: {
-            "User-Agent":
-              "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36",
-          },
-        }
-      )
-    )
+    keywords.map((keyword) => {
+      const keywordUrl = `https://google.com/search?hl=en&q=${encodeURIComponent(
+        keyword
+      )}`;
+
+      console.log(keywordUrl);
+
+      return fetch(
+        `http://api.scraperapi.com?api_key=c2d92fd080310fa930cfb871d4ed39cd&url=${keywordUrl}`
+      );
+    })
   );
 
   const pages = await Promise.all(responses.map((response) => response.text()));
@@ -42,7 +42,13 @@ export function processResult(
   // example: "About 2,460,000,000 results (0.44 seconds) "
   const statistic = $("#result-stats").text();
 
-  const resultCount = BigInt(statistic.split(" ")[1].replace(/,/g, ""));
+  const resultCountString = statistic.split(" ")[1];
+
+  // parse string 2,460,000,000 or 2.460.000.000 into bigint
+  const resultCount = BigInt(
+    resultCountString.replace(/,/g, "").replace(/\./g, "")
+  );
+
   const linkCount = $("a").length;
 
   // sponsored links contains class .U3A9Ac .qV8iec
