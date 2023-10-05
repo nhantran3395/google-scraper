@@ -1,15 +1,15 @@
 import { FormEvent, useState } from "react";
 import { DocumentTextIcon, XCircleIcon } from "@heroicons/react/24/solid";
 
-import useFileUpload from "../../../lib/use-file-upload.hook";
+import useFileUpload from "./use-file-upload.hook.ts";
 
 export default function FileUpload() {
   const [file, setFile] = useState<unknown>(null);
-  const { isError, errorMsg, upload, resetError } = useFileUpload();
+  const { isError, errorMsg, uploadFile, resetError } = useFileUpload();
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    await upload(file);
+    await uploadFile(file);
   }
 
   function onChange(event: FormEvent<HTMLFormElement>) {
