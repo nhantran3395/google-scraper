@@ -1,7 +1,7 @@
 import { MouseEvent } from "react";
 import Router from "next/router";
 
-import { Keyword } from "../../../types";
+import { Keyword } from "types";
 
 type KeywordGridProps = {
   keywords: Array<Keyword>;

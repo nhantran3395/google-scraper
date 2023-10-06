@@ -1,6 +1,6 @@
-import useUser from "../../lib/use-auth.hook";
-import NavigationBar from "../common/navigation-bar";
-import Dialog from "../common/loading-indicator";
+import useUser from "lib/use-auth.hook";
+import NavigationBar from "components/common/navigation-bar";
+import Dialog from "components/common/loading-indicator";
 
 import FileUpload from "./file-upload";
 import UploadGrid from "./upload-grid";
