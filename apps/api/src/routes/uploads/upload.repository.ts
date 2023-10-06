@@ -23,5 +23,8 @@ export async function getAll(userId: string) {
     where: {
       userId,
     },
+    orderBy: {
+      createdAt: "desc",
+    },
   });
 }
