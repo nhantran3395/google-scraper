@@ -1,9 +1,10 @@
 import { FormEvent } from "react";
 
-import useAuth from "../../lib/use-auth.hook.ts";
+import useAuth from "../../lib/use-auth.hook";
+import LoadingIndicator from "../common/loading-indicator";
 
 export default function RegisterContainer() {
-  const { register, errorMsg, resetError } = useAuth({
+  const { register, errorMsg, resetError, isLoading } = useAuth({
     redirectTo: "/",
     redirectIfFound: true,
   });
@@ -129,6 +130,8 @@ export default function RegisterContainer() {
           </div>
         </form>
       </div>
+
+      <LoadingIndicator isLoading={isLoading} />
     </div>
   );
 }

@@ -1,22 +1,13 @@
-import useSWR from "swr";
 import { MouseEvent } from "react";
-import Router, { useRouter } from "next/router";
+import Router from "next/router";
 
-import configs from "../../../configs";
-import { fetchJsonAuthenticated } from "../../../lib/fetch-json";
-import { GetKeywordsResponse } from "../../../types";
+import { Keyword } from "../../../types";
 
-export default function KeywordGrid() {
-  const { query } = useRouter();
-  const uploadId = query.uploadId || "";
+type KeywordGridProps = {
+  keywords: Array<Keyword>;
+};
 
-  const { data } = useSWR<GetKeywordsResponse>(
-    `${configs.BASE_API_URL}/keywords?uploadId=${uploadId}`,
-    fetchJsonAuthenticated
-  );
-
-  const keywords = data?.keywords || [];
-
+export default function KeywordGrid({ keywords }: KeywordGridProps) {
   const onClick = (event: MouseEvent<HTMLElement>) => {
     const keywordId = event.currentTarget.getAttribute("data-keyword-id");
     const uploadId = event.currentTarget.getAttribute("data-upload-id");

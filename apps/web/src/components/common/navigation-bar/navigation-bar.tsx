@@ -1,15 +1,18 @@
 import { Fragment, MouseEvent } from "react";
+import Router, { useRouter } from "next/router";
+
 import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import {
+  Bars3Icon,
+  UserIcon,
+  XMarkIcon,
+  GlobeAltIcon,
+} from "@heroicons/react/24/outline";
 
-const user = {
-  name: "Nhan Tran",
-  email: "nhantran@example.com",
-  imageUrl:
-    "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-};
-
-const navigation = [{ name: "Dashboard", href: "", current: true }];
+const navigation = [
+  { name: "Uploads", href: "/uploads" },
+  { name: "Keywords", href: "/keywords" },
+];
 
 const userNavigation = [{ name: "Sign out", href: "/login" }];
 
@@ -27,6 +30,8 @@ export default function NavigationBar({ signOut }: NavigationBarProps) {
     signOut();
   }
 
+  const { pathname } = useRouter();
+
   return (
     <Disclosure as="nav" className={"bg-indigo-600"}>
       {({ open }) => (
@@ -34,12 +39,11 @@ export default function NavigationBar({ signOut }: NavigationBarProps) {
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="flex h-16 items-center justify-between">
               <div className="flex items-center">
-                <div className="flex-shrink-0">
-                  <img
-                    className="h-8 w-8"
-                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=300"
-                    alt="Your Company"
-                  />
+                <div
+                  className="flex-shrink-0"
+                  onClick={() => Router.push("/uploads")}
+                >
+                  <GlobeAltIcon className={"rounded-full text-white h-8 w-8"} />
                 </div>
                 <div className="hidden md:block">
                   <div className="ml-10 flex items-baseline space-x-4">
@@ -48,12 +52,14 @@ export default function NavigationBar({ signOut }: NavigationBarProps) {
                         key={item.name}
                         href={item.href}
                         className={classNames(
-                          item.current
+                          item.href === pathname
                             ? "bg-indigo-700 text-white"
                             : "text-white hover:bg-indigo-500",
                           "rounded-md px-3 py-2 text-sm"
                         )}
-                        aria-current={item.current ? "page" : undefined}
+                        aria-current={
+                          item.href === pathname ? "page" : undefined
+                        }
                       >
                         {item.name}
                       </a>
@@ -70,10 +76,10 @@ export default function NavigationBar({ signOut }: NavigationBarProps) {
                       <Menu.Button className="relative flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                         <span className="absolute -inset-1.5" />
                         <span className="sr-only">Open user menu</span>
-                        <img
-                          className="h-8 w-8 rounded-full"
-                          src={user.imageUrl}
-                          alt=""
+                        <UserIcon
+                          className={
+                            "text-white h-8 w-8 bg-indigo-600 rounded-full"
+                          }
                         />
                       </Menu.Button>
                     </div>
@@ -132,35 +138,18 @@ export default function NavigationBar({ signOut }: NavigationBarProps) {
                   as="a"
                   href={item.href}
                   className={classNames(
-                    item.current
+                    item.href === pathname
                       ? "bg-indigo-700 text-white"
                       : "text-white hover:bg-indigo-500",
                     "block rounded-md px-3 py-2 text-base"
                   )}
-                  aria-current={item.current ? "page" : undefined}
+                  aria-current={item.href === pathname ? "page" : undefined}
                 >
                   {item.name}
                 </Disclosure.Button>
               ))}
             </div>
             <div className="border-t border-gray-700 pb-3 pt-4">
-              <div className="flex items-center px-5">
-                <div className="flex-shrink-0">
-                  <img
-                    className="h-10 w-10 rounded-full"
-                    src={user.imageUrl}
-                    alt=""
-                  />
-                </div>
-                <div className="ml-3">
-                  <div className="text-base leading-none text-white">
-                    {user.name}
-                  </div>
-                  <div className="text-sm leading-none text-white">
-                    {user.email}
-                  </div>
-                </div>
-              </div>
               <div className="mt-3 space-y-1 px-2">
                 {userNavigation.map((item) => (
                   <Disclosure.Button
