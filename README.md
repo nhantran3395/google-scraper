@@ -57,7 +57,7 @@ npm i
 ```
 4. Run the Prisma migration to generate the schema
 ```bash
-npm run migrate
+npm run migrate:dev
 ```
 5. Run Web and API in development mode
 ```bash
