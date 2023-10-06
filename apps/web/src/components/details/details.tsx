@@ -32,6 +32,7 @@ export default function DetailsPageContainer() {
     resultCount: 0,
     createdAt: "",
     updatedAt: "",
+    linkCount: 0,
   };
 
   return (
@@ -49,39 +50,47 @@ export default function DetailsPageContainer() {
         <section className={"mt-4"}>
           <div className="mt-6 border-t border-gray-100">
             <dl className="divide-y divide-gray-100">
-              <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+              <div className="px-4 py-4 sm:grid sm:grid-cols-4 sm:gap-4 sm:px-0">
                 <dt className="text-sm font-medium leading-6 text-gray-900">
                   Keyword
                 </dt>
-                <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-3 sm:mt-0">
                   {keyword.body}
                 </dd>
               </div>
-              <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+              <div className="px-4 py-4 sm:grid sm:grid-cols-4 sm:gap-4 sm:px-0">
                 <dt className="text-sm font-medium leading-6 text-gray-900">
                   Total search result
                 </dt>
-                <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-3 sm:mt-0">
                   {keyword.resultCount.toString()}
                 </dd>
               </div>
-              <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+              <div className="px-4 py-4 sm:grid sm:grid-cols-4 sm:gap-4 sm:px-0">
                 <dt className="text-sm font-medium leading-6 text-gray-900">
                   Ads link
                 </dt>
-                <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-3 sm:mt-0">
                   {keyword.adWordsCount}
                 </dd>
               </div>
-              <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+              <div className="px-4 py-4 sm:grid sm:grid-cols-4 sm:gap-4 sm:px-0">
+                <dt className="text-sm font-medium leading-6 text-gray-900">
+                  Total link count
+                </dt>
+                <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-3 sm:mt-0">
+                  {keyword.linkCount}
+                </dd>
+              </div>
+              <div className="px-4 py-4 sm:grid sm:grid-cols-4 sm:gap-4 sm:px-0">
                 <dt className="text-sm font-medium leading-6 text-gray-900">
                   Raw HTML
                 </dt>
-                <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                <dd className="mt-1 h-96 text-sm leading-6 text-gray-700 sm:col-span-3 sm:mt-0">
                   <iframe
                     srcDoc={keyword.rawHtmlResult}
-                    width={800}
-                    height={800}
+                    width={"100%"}
+                    height={"100%"}
                     className={"border"}
                   />
                 </dd>

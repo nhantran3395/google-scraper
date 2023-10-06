@@ -25,8 +25,10 @@ router.post("", handleFileUpload, async (req, res, next) => {
   const keywords = file.buffer.toString().split("\n") || [];
 
   try {
-    const rawResults = await pool.exec(scrape, [prepareAgents(keywords)]);
-    await pool.terminate();
+    const keywordsWithAgents = prepareAgents(keywords);
+    const rawResults = await scrape(keywordsWithAgents);
+    // const rawResults = await pool.exec(scrape, [prepareAgents(keywords)]);
+    // await pool.terminate();
 
     const processedResults = rawResults.map(processResult);
     await uploadRepository.createNew(user.userId, file, processedResults);
