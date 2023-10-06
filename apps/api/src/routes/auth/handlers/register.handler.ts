@@ -1,8 +1,9 @@
 import { Request, Response } from "express";
 
-import { hashPassword } from "./auth.helper";
-import { createUser } from "./user.repository";
-import { ERROR_MESSAGE, SUCCESS_MESSAGE } from "../../messages.ts";
+import { ERROR_MESSAGE } from "errors";
+
+import { hashPassword } from "../helpers";
+import { userRepository } from "../repositories";
 
 interface UniqueConstraintViolationError {
   name: "PrismaClientKnownRequestError";
@@ -21,14 +22,14 @@ function isUniqueConstraintViolationError(
   );
 }
 
-export default async function registerHandler(req: Request, res: Response) {
+export async function registerHandler(req: Request, res: Response) {
   const { email, password, firstName, lastName } = req.body;
   const SALT_ROUNDS = 10;
 
   const hashedPassword = await hashPassword(password, SALT_ROUNDS);
 
   try {
-    await createUser({
+    await userRepository.createUser({
       email,
       firstName,
       lastName,
@@ -38,7 +39,6 @@ export default async function registerHandler(req: Request, res: Response) {
     res.status(200);
     res.json({
       ok: true,
-      message: SUCCESS_MESSAGE.USER_CREATE_SUCCESS,
     });
   } catch (error) {
     if (!(error instanceof Error)) {
@@ -52,7 +52,6 @@ export default async function registerHandler(req: Request, res: Response) {
     }
 
     if (isUniqueConstraintViolationError(error)) {
-      console.error("email already exist");
       res.status(400).json({
         ok: false,
         message: ERROR_MESSAGE.REGISTER_EMAIL_ALREADY_EXIST,

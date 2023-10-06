@@ -1,7 +1,7 @@
-import { DatabaseClient } from "../../infra";
+import { dbClient } from "infra";
 
 export async function getUser(email: string) {
-  return await DatabaseClient.user.findUnique({
+  return dbClient.user.findUnique({
     where: {
       email,
     },
@@ -21,7 +21,7 @@ export async function createUser({
   firstName,
   lastName,
 }: CreateUserProps) {
-  await DatabaseClient.user.create({
+  await dbClient.user.create({
     data: {
       email,
       password,

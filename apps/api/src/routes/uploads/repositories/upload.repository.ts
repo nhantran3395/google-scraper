@@ -1,12 +1,13 @@
-import { ProcessedKeywordResult } from "../../types";
-import { DatabaseClient } from "../../infra";
+import { ProcessedKeywordResult } from "types";
+
+import { dbClient } from "infra";
 
 export async function createNew(
   userId: string,
   file: Express.Multer.File,
   keywords: Array<ProcessedKeywordResult>
 ) {
-  return DatabaseClient.upload.create({
+  return dbClient.upload.create({
     data: {
       userId: userId,
       name: file.originalname,
@@ -19,7 +20,7 @@ export async function createNew(
 }
 
 export async function getAll(userId: string) {
-  return DatabaseClient.upload.findMany({
+  return dbClient.upload.findMany({
     where: {
       userId,
     },

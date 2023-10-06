@@ -1,4 +1,3 @@
-// @ts-ignore
 import process from "node:process";
 
 export const configs = {

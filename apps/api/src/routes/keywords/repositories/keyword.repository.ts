@@ -1,8 +1,8 @@
-import { DatabaseClient } from "../../infra";
+import { dbClient } from "infra";
 
 export async function getAll(uploadId: string | null, userId: string) {
   if (uploadId) {
-    return DatabaseClient.keyword.findMany({
+    return dbClient.keyword.findMany({
       where: {
         uploadId,
         upload: {
@@ -16,7 +16,7 @@ export async function getAll(uploadId: string | null, userId: string) {
   }
 
   // no uploadId, return all that belong to user
-  return DatabaseClient.keyword.findMany({
+  return dbClient.keyword.findMany({
     where: {
       upload: {
         userId,
@@ -38,7 +38,7 @@ export async function getAll(uploadId: string | null, userId: string) {
 }
 
 export async function getOne(keywordId: string) {
-  return DatabaseClient.keyword.findUnique({
+  return dbClient.keyword.findUnique({
     where: {
       keywordId,
     },

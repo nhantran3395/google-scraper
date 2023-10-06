@@ -1,3 +1,3 @@
-import DatabaseClient from './database-client';
+import dbClient from "./db-client";
 
-export { DatabaseClient };
+export { dbClient };

@@ -3,6 +3,7 @@
     "lib": ["ES2015"],
     "module": "CommonJS",
     "outDir": "./dist",
+    "baseUrl": "./src"
   },
   "exclude": ["node_modules"],
   "extends": "tsconfig/base.json",
