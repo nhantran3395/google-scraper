@@ -7,4 +7,10 @@ export const configs = {
   CORS_WHITELIST: process.env.CORS_WHITELIST
     ? process.env.CORS_WHITELIST.split(",")
     : [],
+  FILE_UPLOAD_MAX_KEYWORD_LIMIT: process.env.FILE_UPLOAD_MAX_KEYWORD_LIMIT
+    ? Number(process.env.FILE_UPLOAD_MAX_KEYWORD_LIMIT)
+    : 100,
+  FILE_UPLOAD_MAX_SIZE: process.env.FILE_UPLOAD_MAX_SIZE
+    ? Number(process.env.FILE_UPLOAD_MAX_SIZE)
+    : 1024,
 };

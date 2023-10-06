@@ -46,6 +46,8 @@ NEXT_PUBLIC_BASE_API_URL="http://localhost:5001"
 ```bash
 DATABASE_URL="postgres://user:password@host/dbname"
 CORS_WHITELIST="http://localhost:3002"
+FILE_UPLOAD_MAX_KEYWORD_LIMIT=100
+FILE_UPLOAD_MAX_SIZE=1024 #in bytes
 ```
 
 Note: 
