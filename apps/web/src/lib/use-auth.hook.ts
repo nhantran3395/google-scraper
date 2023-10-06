@@ -17,6 +17,8 @@ export default function useUser({
   const [errorMsg, setErrorMsg] = useState<string>("");
   const isError = !!errorMsg;
 
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   function handleError(error: unknown) {
     if (error instanceof FetchError) {
       console.log(error.data);
@@ -42,6 +44,8 @@ export default function useUser({
   }
 
   async function login(credential: { email: string; password: string }) {
+    setIsLoading(true);
+
     try {
       const data = await fetchJson(`${configs.BASE_API_URL}/login`, {
         method: "POST",
@@ -64,6 +68,8 @@ export default function useUser({
       resetError();
     } catch (error) {
       handleError(error);
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -73,6 +79,8 @@ export default function useUser({
     firstName: string;
     lastName: string;
   }) {
+    setIsLoading(true);
+
     try {
       await fetchJson(`${configs.BASE_API_URL}/register`, {
         method: "POST",
@@ -84,6 +92,8 @@ export default function useUser({
       Router.push("/login");
     } catch (error) {
       handleError(error);
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -101,5 +111,14 @@ export default function useUser({
     }
   }, [user, redirectIfFound, redirectTo]);
 
-  return { user, login, signOut, register, isError, errorMsg, resetError };
+  return {
+    user,
+    login,
+    signOut,
+    register,
+    isError,
+    errorMsg,
+    resetError,
+    isLoading,
+  };
 }

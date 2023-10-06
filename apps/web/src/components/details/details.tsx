@@ -7,8 +7,9 @@ import NavigationBar from "../common/navigation-bar";
 import { type GetKeywordResponse } from "../../types";
 import configs from "../../configs";
 import { fetchJsonAuthenticated } from "../../lib/fetch-json";
+import LoadingIndicator from "../common/loading-indicator";
 
-export default function DetailPageContainer() {
+export default function DetailsPageContainer() {
   const { signOut } = useUser({
     redirectTo: "/login",
   });
@@ -17,7 +18,7 @@ export default function DetailPageContainer() {
   const uploadId = query.uploadId || "";
   const keywordId = query.keywordId || "";
 
-  const { data } = useSWR<GetKeywordResponse>(
+  const { data, isLoading } = useSWR<GetKeywordResponse>(
     `${configs.BASE_API_URL}/keywords/${keywordId}`,
     fetchJsonAuthenticated
   );
@@ -89,6 +90,8 @@ export default function DetailPageContainer() {
           </div>
         </section>
       </article>
+
+      <LoadingIndicator isLoading={isLoading} />
     </div>
   );
 }

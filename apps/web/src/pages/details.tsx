@@ -1,5 +1,5 @@
 import DetailsPageContainer from "../components/details";
 
-export default function ScrapperHomePage() {
+export default function DetailsPage() {
   return <DetailsPageContainer />;
 }

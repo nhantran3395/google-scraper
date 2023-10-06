@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { mutate } from "swr";
 
-import fetchJson, { FetchError } from "../../../lib/fetch-json";
-import configs from "../../../configs";
-import LocalStorageService from "../../../lib/local-storage.service";
+import fetchJson, { FetchError } from "../../lib/fetch-json";
+import configs from "../../configs";
+import LocalStorageService from "../../lib/local-storage.service";
 
 export default function useFileUpload() {
   const [errorMsg, setErrorMsg] = useState<string>("");
+  const [isProcessing, setIsProcessing] = useState<boolean>(false);
+
   const isError = !!errorMsg;
 
   async function uploadFile(file: unknown) {
@@ -14,8 +16,10 @@ export default function useFileUpload() {
 
     if (!file) {
       setErrorMsg("must select a file");
+      return;
     }
 
+    setIsProcessing(true);
     const formData = new FormData();
     // @ts-ignore
     formData.append("file", file);
@@ -39,6 +43,8 @@ export default function useFileUpload() {
         console.error("An unexpected error happened:", error);
         setErrorMsg("An unexpected error happened");
       }
+    } finally {
+      setIsProcessing(false);
     }
   }
 
@@ -46,5 +52,5 @@ export default function useFileUpload() {
     setErrorMsg("");
   }
 
-  return { isError, errorMsg, resetError, uploadFile };
+  return { isError, errorMsg, resetError, uploadFile, isProcessing };
 }
