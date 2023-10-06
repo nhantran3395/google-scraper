@@ -14,7 +14,6 @@ router.get("", async (req, res, next) => {
       return {
         ...raw,
         resultCount: Number(raw.resultCount),
-        rawHtmlResult: raw.rawHtmlResult.toString(),
       };
     });
 
