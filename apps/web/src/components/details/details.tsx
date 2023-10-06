@@ -2,12 +2,12 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 
-import useUser from "../../lib/use-auth.hook";
-import NavigationBar from "../common/navigation-bar";
-import { type GetKeywordResponse } from "../../types";
-import configs from "../../configs";
-import { fetchJsonAuthenticated } from "../../lib/fetch-json";
-import LoadingIndicator from "../common/loading-indicator";
+import useUser from "lib/use-auth.hook";
+import { fetchJsonAuthenticated } from "lib/fetch-json";
+import LoadingIndicator from "components/common/loading-indicator";
+import NavigationBar from "components/common/navigation-bar";
+import { type GetKeywordResponse } from "types";
+import configs from "configs";
 
 export default function DetailsPageContainer() {
   const { signOut } = useUser({

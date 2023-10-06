@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { mutate } from "swr";
 
-import fetchJson, { FetchError } from "../../lib/fetch-json";
-import configs from "../../configs";
-import LocalStorageService from "../../lib/local-storage.service";
+import fetchJson, { FetchError } from "lib/fetch-json";
+import LocalStorageService from "lib/local-storage.service";
+import configs from "configs";
 
 export default function useFileUpload() {
   const [errorMsg, setErrorMsg] = useState<string>("");

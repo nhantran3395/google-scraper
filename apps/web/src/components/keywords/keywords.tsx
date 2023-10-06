@@ -3,13 +3,12 @@ import { useRouter } from "next/router";
 import useSWR from "swr";
 import Link from "next/link";
 
-import useUser from "../../lib/use-auth.hook";
-import { fetchJsonAuthenticated } from "../../lib/fetch-json";
-import { GetKeywordsResponse, Keyword } from "../../types";
-import configs from "../../configs";
-
-import NavigationBar from "../common/navigation-bar";
-import LoadingIndicator from "../common/loading-indicator";
+import useUser from "lib/use-auth.hook";
+import { fetchJsonAuthenticated } from "lib/fetch-json";
+import { GetKeywordsResponse, Keyword } from "types";
+import configs from "configs";
+import NavigationBar from "components/common/navigation-bar";
+import LoadingIndicator from "components/common/loading-indicator";
 
 import KeywordGrid from "./keyword-grid";
 import SearchBar from "./search-bar";

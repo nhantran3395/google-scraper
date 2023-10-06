@@ -1,7 +1,7 @@
 import { FormEvent } from "react";
 
-import useAuth from "../../lib/use-auth.hook";
-import LoadingIndicator from "../common/loading-indicator";
+import useAuth from "lib/use-auth.hook";
+import LoadingIndicator from "components/common/loading-indicator";
 
 export default function RegisterContainer() {
   const { register, errorMsg, resetError, isLoading } = useAuth({

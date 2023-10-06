@@ -2,9 +2,9 @@ import useSWR from "swr";
 import { MouseEvent } from "react";
 import Router from "next/router";
 
-import configs from "../../../configs";
-import { fetchJsonAuthenticated } from "../../../lib/fetch-json";
-import { GetUploadsResponse } from "../../../types";
+import { fetchJsonAuthenticated } from "lib/fetch-json";
+import { GetUploadsResponse } from "types";
+import configs from "configs";
 
 export default function UploadGrid() {
   const { data } = useSWR<GetUploadsResponse>(

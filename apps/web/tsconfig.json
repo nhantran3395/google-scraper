@@ -3,6 +3,7 @@
   "extends": "tsconfig/nextjs.json",
   "compilerOptions": {
     "outDir": "dist",
+    "baseUrl": "./src",
     "plugins": [
       {
         "name": "next"
