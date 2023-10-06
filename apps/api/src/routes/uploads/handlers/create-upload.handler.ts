@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 
 import { uploadRepository } from "../repositories";
 import { scraper, resultProcessor } from "../helpers";
-import { configs } from "../../../configs";
+import { configs } from "configs";
 
 export async function createNewUploadHandler(
   req: Request,
