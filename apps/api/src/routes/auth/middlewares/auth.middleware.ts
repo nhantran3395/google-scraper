@@ -1,9 +1,10 @@
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 
-import { checkToken } from "./auth.helper";
-import { ERROR_MESSAGE } from "../../messages";
-import { configs } from "../../configs";
+import { ERROR_MESSAGE } from "errors";
+import { configs } from "configs";
+
+import { checkToken } from "../helpers";
 
 declare module "express-serve-static-core" {
   interface Request {
@@ -11,7 +12,7 @@ declare module "express-serve-static-core" {
   }
 }
 
-export default function tokenMiddleware(
+export function authMiddleware(
   req: Request,
   res: Response,
   next: NextFunction

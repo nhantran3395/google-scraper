@@ -1,8 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { MulterError } from "multer";
 
-import { FileTypeNotSupportedError } from "../errors.ts";
-import { ERROR_MESSAGE } from "../messages.ts";
+import { ERROR_MESSAGE, FileTypeNotSupportedError } from "errors";
 
 export function handleError(
   error: Error,

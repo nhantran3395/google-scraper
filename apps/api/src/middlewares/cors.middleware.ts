@@ -1,7 +1,7 @@
 // @ts-ignore
 import cors, { type CorsOptions } from "cors";
 
-import { configs } from "../configs";
+import { configs } from "configs";
 
 const whitelist = configs.CORS_WHITELIST;
 

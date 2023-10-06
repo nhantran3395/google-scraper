@@ -1,8 +1,8 @@
 import supertest from "supertest";
 
-import { createServer } from "../../server";
+import { createServer } from "server";
 
-describe("tokenMiddleware", () => {
+describe("authMiddleware", () => {
   it("request is rejected when there is no token", async () => {
     const app = createServer();
 

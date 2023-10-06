@@ -9,6 +9,7 @@ module.exports = {
     "<rootDir>/node_modules",
     "<rootDir>/dist",
   ],
+  moduleDirectories: ["node_modules", "src"],
   preset: "ts-jest",
   collectCoverage: true,
   collectCoverageFrom: ["src/**/*.ts"],

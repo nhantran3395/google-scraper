@@ -6,7 +6,7 @@ import multer, {
 
 import { type Request } from "express";
 
-import { FileTypeNotSupportedError } from "../../errors";
+import { FileTypeNotSupportedError } from "errors";
 
 function csvFilter(
   _req: Request,
