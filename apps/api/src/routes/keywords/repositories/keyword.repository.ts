@@ -9,6 +9,16 @@ export async function getAll(uploadId: string | null, userId: string) {
           userId,
         },
       },
+      select: {
+        resultCount: true,
+        createdAt: true,
+        keywordId: true,
+        linkCount: true,
+        adWordsCount: true,
+        uploadId: true,
+        body: true,
+        rawHtmlResult: false,
+      },
       orderBy: {
         createdAt: "desc",
       },
@@ -30,6 +40,7 @@ export async function getAll(uploadId: string | null, userId: string) {
       adWordsCount: true,
       uploadId: true,
       body: true,
+      rawHtmlResult: false,
     },
     orderBy: {
       createdAt: "desc",
