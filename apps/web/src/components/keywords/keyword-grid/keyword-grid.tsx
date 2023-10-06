@@ -31,6 +31,12 @@ export default function KeywordGrid({ keywords }: KeywordGridProps) {
                   <th scope="col" className="px-6 py-4">
                     Ads link
                   </th>
+                  <th scope="col" className="px-6 py-4">
+                    Total link count
+                  </th>
+                  <th scope="col" className="px-6 py-4">
+                    Date
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -50,6 +56,12 @@ export default function KeywordGrid({ keywords }: KeywordGridProps) {
                     </td>
                     <td className="whitespace-nowrap px-6 py-4">
                       {keyword.adWordsCount}
+                    </td>
+                    <td className="whitespace-nowrap px-6 py-4">
+                      {keyword.linkCount}
+                    </td>
+                    <td className="whitespace-nowrap px-6 py-4">
+                      {new Date(keyword.createdAt).toLocaleString()}
                     </td>
                   </tr>
                 ))}
