@@ -5,47 +5,55 @@ import {
   type ProcessedKeywordResult,
   type RawKeywordResult,
 } from "../../types";
+import axios from "axios";
+import { HttpsProxyAgent } from "https-proxy-agent";
 
-type KeywordWithAgent = {
+type KeywordWithUserAgent = {
   keyword: string;
-  agent: string;
+  keywordUrl: string;
+  userAgent: string;
 };
+
+function addAgentToKeyword(keyword: string): KeywordWithUserAgent {
+  return {
+    keyword,
+    keywordUrl: `https://google.com/search?hl=en&q=${encodeURIComponent(
+      keyword
+    )}`,
+    userAgent: new UserAgent({ deviceCategory: "desktop" }).toString(),
+  };
+}
 
 export function prepareAgents(
   keywords: Array<string>
-): Array<KeywordWithAgent> {
-  return keywords.map((keyword) => {
-    return {
-      keyword,
-      agent: new UserAgent().toString(),
-    };
-  });
+): Array<KeywordWithUserAgent> {
+  return keywords.map(addAgentToKeyword);
 }
 
 export async function scrape(
-  keywords: Array<KeywordWithAgent>
+  keywords: Array<KeywordWithUserAgent>
 ): Promise<Array<RawKeywordResult>> {
   const responses = await Promise.all(
     keywords.map((keyword) => {
-      const keywordUrl = `https://google.com/search?hl=en&q=${encodeURIComponent(
-        keyword.keyword
-      )}`;
-
-      console.info(keywordUrl, keyword.agent);
+      const { keywordUrl, userAgent } = keyword;
 
       const headers = {
-        "User-Agent": keyword.agent,
+        "User-Agent": userAgent,
       };
 
       const option = {
         headers,
+        proxy: false,
+        httpsAgent: new HttpsProxyAgent("http://15.204.161.192:18080"),
       };
 
-      return fetch(keywordUrl, option);
+      console.info({ keywordUrl, userAgent });
+      // @ts-ignore
+      return axios.get(keywordUrl, option);
     })
   );
 
-  const pages = await Promise.all(responses.map((response) => response.text()));
+  const pages = await Promise.all(responses.map((response) => response.data));
 
   return keywords.map((keyword, index) => {
     return {
@@ -60,17 +68,10 @@ export function processResult(
 ): ProcessedKeywordResult {
   const $ = cheerio.load(rawResult.rawHtmlResult);
 
-  // string contains number of results
-  // inside div id result-stats
-  // example: "About 2,460,000,000 results (0.44 seconds) "
-  const statistic = $("#result-stats").text();
-
-  const resultCountString = statistic.split(" ")[1];
-
-  // parse string 2,460,000,000 or 2.460.000.000 into bigint
-  const resultCount = BigInt(
-    resultCountString.replace(/,/g, "").replace(/\./g, "")
-  );
+  // string contains number of results "About 2,460,000,000 results (0.44 seconds)"
+  // inside div with id as "result-stats"
+  const statString = $("#result-stats").text();
+  const resultCount = extractCount(statString);
 
   const linkCount = $("a").length;
 
@@ -84,4 +85,21 @@ export function processResult(
     rawHtmlResult: Buffer.from(rawResult.rawHtmlResult),
     body: rawResult.body,
   };
+}
+
+// extract count from stat string and convert to bigint
+// example: "About 2,460,000,000 results (0.44 seconds)" convert to 246000000
+// return 0 when cannot convert
+function extractCount(statString: string): bigint {
+  if (!statString) {
+    return BigInt(0);
+  }
+
+  try {
+    const resultCount = statString.split(" ")[1];
+    return BigInt(resultCount?.replace(/,/g, "").replace(/\./g, ""));
+  } catch (error) {
+    console.error(error);
+    return BigInt(0);
+  }
 }

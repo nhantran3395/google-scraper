@@ -3,6 +3,7 @@ export type Keyword = {
   createdAt: string;
   updatedAt: string;
   resultCount: bigint;
+  linkCount: number;
   adWordsCount: number;
   rawHtmlResult: string;
   body: string;
