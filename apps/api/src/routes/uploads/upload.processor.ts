@@ -1,12 +1,11 @@
 import * as cheerio from "cheerio";
 import UserAgent from "user-agents";
+import axios from "axios";
 
 import {
   type ProcessedKeywordResult,
   type RawKeywordResult,
 } from "../../types";
-import axios from "axios";
-import { HttpsProxyAgent } from "https-proxy-agent";
 
 type KeywordWithUserAgent = {
   keyword: string;
@@ -43,11 +42,8 @@ export async function scrape(
 
       const option = {
         headers,
-        proxy: false,
-        httpsAgent: new HttpsProxyAgent("http://15.204.161.192:18080"),
       };
 
-      console.info({ keywordUrl, userAgent });
       // @ts-ignore
       return axios.get(keywordUrl, option);
     })

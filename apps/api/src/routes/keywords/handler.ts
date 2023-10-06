@@ -6,20 +6,22 @@ const router = Router();
 
 router.get("", async (req, res, next) => {
   const uploadId = (req.query.uploadId as string) || null;
+  const userId = req.user?.userId || "";
 
   try {
-    const rawKeywords = await keywordRepository.getAll(uploadId);
+    const keywords = await keywordRepository.getAll(uploadId, userId);
 
-    const keywords = rawKeywords.map((raw) => {
+    // convert bigint value to int before the keywords can be serializing in JSON
+    const convertedKeywords = keywords.map((keyword) => {
       return {
-        ...raw,
-        resultCount: Number(raw.resultCount),
+        ...keyword,
+        resultCount: Number(keyword.resultCount),
       };
     });
 
     res.json({
       ok: true,
-      keywords,
+      keywords: convertedKeywords,
     });
   } catch (error) {
     console.error(error);
@@ -29,26 +31,26 @@ router.get("", async (req, res, next) => {
 
 router.get("/:keywordId", async (req, res, next) => {
   try {
-    const rawKeyword = await keywordRepository.getOne(req.params.keywordId);
+    const keyword = await keywordRepository.getOne(req.params.keywordId);
 
-    if (!rawKeyword) {
+    if (!keyword) {
       res.json({
         ok: true,
-        message: "keyword not found",
+        message: "not found",
       });
 
       return;
     }
 
-    const keyword = {
-      ...rawKeyword,
-      resultCount: Number(rawKeyword.resultCount),
-      rawHtmlResult: rawKeyword.rawHtmlResult.toString(),
+    const keywordConverted = {
+      ...keyword,
+      resultCount: Number(keyword.resultCount),
+      rawHtmlResult: keyword.rawHtmlResult.toString(),
     };
 
     res.json({
       ok: true,
-      keyword,
+      keyword: keywordConverted,
     });
   } catch (error) {
     console.log(error);
