@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import Router from "next/router";
 import LocalStorageService from "./local-storage.service";
 import type { User } from "../types";
-import fetchJson, { FetchError } from "./fetch-json.ts";
-import configs from "../configs.ts";
+import fetchJson, { FetchError } from "./fetch-json";
+import configs from "../configs";
 import { validateLoginResponse } from "../types";
 
 export default function useUser({
