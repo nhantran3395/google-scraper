@@ -7,6 +7,7 @@ import multer, {
 import { type Request } from "express";
 
 import { FileTypeNotSupportedError } from "errors";
+import { configs } from "configs";
 
 function csvFilter(
   _req: Request,
@@ -23,7 +24,7 @@ function csvFilter(
 const storage = memoryStorage();
 
 const limits = {
-  fileSize: 1024, //1 KB
+  fileSize: configs.FILE_UPLOAD_MAX_SIZE,
 };
 
 const options: Options = {

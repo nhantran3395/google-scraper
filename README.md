@@ -37,7 +37,7 @@ To run the application from your local, follow the below steps:
 
 2. Prepare the environment variables
 
-- For the Web, place the following content in the `.env` file in `apps/web` folder
+- For the Web, place the following content in the `.env.local` file in `apps/web` folder
 ```bash
 NEXT_PUBLIC_BASE_API_URL="http://localhost:5001"
 ```
@@ -46,6 +46,8 @@ NEXT_PUBLIC_BASE_API_URL="http://localhost:5001"
 ```bash
 DATABASE_URL="postgres://user:password@host/dbname"
 CORS_WHITELIST="http://localhost:3002"
+FILE_UPLOAD_MAX_KEYWORD_LIMIT=100
+FILE_UPLOAD_MAX_SIZE=1024 #in bytes
 ```
 
 Note: 
@@ -72,10 +74,12 @@ npm run dev
 
 The following techniques have been considered to avoid Google from blocking the request:
 
-- Randomizing user agents: Apply a random user agent to each request
-- Rotating proxy: Use a pool of proxy that can be rotated. If a scrape request fail, the same request can be retried with proxies from the pool. 
+- **Randomizing user agents**: Apply a random user agent to each request
+- **Rotating proxy**: Use a pool of proxy that can be rotated. If a scrape request fail, the same request can be retried with proxies from the pool. 
 
-Note: The proxies are not being used at the moment, it can be considered as an improvement in the future
+Note: The proxy strategy is not currently used in the app, but it can be considered as an improvement in the future <br/>
+
+At the moment, application can handle only upto 10 keywords in 1 file
 
 #### Schema design
 
