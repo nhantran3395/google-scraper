@@ -22,6 +22,16 @@ export async function createNewUploadHandler(
   }
 
   const keywords = file.buffer.toString().split("\n") || [];
+
+  if (keywords.map((keyword) => keyword.trim()).includes("")) {
+    res.status(400).json({
+      ok: false,
+      message: `file must not contains any empty line or line that has only whitespace`,
+    });
+
+    return;
+  }
+
   const limit = configs.FILE_UPLOAD_MAX_KEYWORD_LIMIT;
 
   if (keywords.length > limit) {
