@@ -26,7 +26,8 @@ export async function createNewUploadHandler(
   if (keywords.map((keyword) => keyword.trim()).includes("")) {
     res.status(400).json({
       ok: false,
-      message: `file must not contains any empty line or line that has only whitespace`,
+      message:
+        "file must not contains any empty line or line that has only whitespace",
     });
 
     return;
