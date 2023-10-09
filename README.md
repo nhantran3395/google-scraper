@@ -24,10 +24,12 @@ The CSV can contain a maximum of 100 keywords and must be smaller than 1KB </br>
 
 ## Deployment
 
-Application is hosted on Vercel and Render
+The Web App and API are hosted on Vercel and Render
 
-- [Scrapper (Web)](https://scrapper-prod.vercel.app/uploads)
-- [API](https://scrapper-api-6n7e.onrender.com/status)
+| Component | Link                                          | Platform | Remark                  |
+|-----------|-----------------------------------------------|----------|-------------------------|
+| Web App   | https://scrapper-prod.vercel.app/uploads      | Vercel   | Next.js App             |
+| API       | https://scrapper-api-6n7e.onrender.com/status | Render   | Node.js and Express App |
 
 ## How to get started?
 
