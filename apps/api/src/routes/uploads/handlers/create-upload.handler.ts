@@ -21,17 +21,11 @@ export async function createNewUploadHandler(
     return;
   }
 
-  const keywords = file.buffer.toString().split("\n") || [];
-
-  if (keywords.map((keyword) => keyword.trim()).includes("")) {
-    res.status(400).json({
-      ok: false,
-      message:
-        "file must not contains any empty line or line that has only whitespace",
-    });
-
-    return;
-  }
+  const keywords =
+    file.buffer
+      .toString()
+      .split("\n")
+      .filter((keyword) => keyword.trim().length > 0) || []; // remove empty or only contains whitespaces keyword before processing
 
   const limit = configs.FILE_UPLOAD_MAX_KEYWORD_LIMIT;
 
@@ -45,8 +39,7 @@ export async function createNewUploadHandler(
   }
 
   try {
-    const keywordsWithAgents = scraper.prepareAgents(keywords);
-    const rawResults = await scraper.scrape(keywordsWithAgents);
+    const rawResults = await scraper.scrape(keywords);
 
     const processedResults = rawResults.map(resultProcessor.processResult);
     await uploadRepository.createNew(user.userId, file, processedResults);

@@ -19,17 +19,17 @@ function addAgentToKeyword(keyword: string): KeywordWithUserAgent {
   };
 }
 
-export function prepareAgents(
-  keywords: Array<string>
-): Array<KeywordWithUserAgent> {
+function prepareAgents(keywords: Array<string>): Array<KeywordWithUserAgent> {
   return keywords.map(addAgentToKeyword);
 }
 
 export async function scrape(
-  keywords: Array<KeywordWithUserAgent>
+  keywords: Array<string>
 ): Promise<Array<RawKeywordResult>> {
+  const keywordsWithAgents = prepareAgents(keywords);
+
   const responses = await Promise.all(
-    keywords.map((keyword) => {
+    keywordsWithAgents.map((keyword) => {
       const { keywordUrl, userAgent } = keyword;
 
       const headers = {
@@ -47,7 +47,7 @@ export async function scrape(
 
   const pages = await Promise.all(responses.map((response) => response.data));
 
-  return keywords.map((keyword, index) => {
+  return keywordsWithAgents.map((keyword, index) => {
     return {
       body: keyword.keyword,
       rawHtmlResult: pages[index],

@@ -48,32 +48,8 @@ async function sendUploadKeywordsRequest(path: string): Promise<any> {
 describe("createUploadHandler", () => {
   const TEST_DATA_BASE_PATH = "test_data/upload_keywords";
 
-  it("request is rejected with 400 when file has an empty line", async () => {
-    const res = await sendUploadKeywordsRequest(
-      `${TEST_DATA_BASE_PATH}/has-empty-line.csv`
-    );
-
-    expect(res.status).toBe(400);
-
-    expect(res.body).toEqual({
-      ok: false,
-      message:
-        "file must not contains any empty line or line that has only whitespace",
-    });
-  });
-
-  it("request is rejected with 400 when file has line with only whitespaces", async () => {
-    const res = await sendUploadKeywordsRequest(
-      `${TEST_DATA_BASE_PATH}/has-line-with-whitespaces-only.csv`
-    );
-
-    expect(res.status).toBe(400);
-
-    expect(res.body).toEqual({
-      ok: false,
-      message:
-        "file must not contains any empty line or line that has only whitespace",
-    });
+  afterEach(() => {
+    jest.clearAllMocks();
   });
 
   it("request is rejected with 400 when file exceed keywords limit", async () => {
@@ -102,12 +78,58 @@ describe("createUploadHandler", () => {
     });
   });
 
+  it("request is accepted and empty keyword is removed when there is", async () => {
+    const res = await sendUploadKeywordsRequest(
+      `${TEST_DATA_BASE_PATH}/has-empty-keyword.csv`
+    );
+
+    expect(res.status).toBe(200);
+
+    expect(scraper.scrape).toHaveBeenCalledTimes(1);
+
+    expect(scraper.scrape).toBeCalledWith([
+      "macbook pro m2",
+      "airpods pro",
+      "best place to visit in vietnam",
+    ]);
+
+    expect(res.body).toEqual({
+      ok: true,
+    });
+  });
+
+  it("request is accepted and keyword with only whitespaces is removed when there is", async () => {
+    const res = await sendUploadKeywordsRequest(
+      `${TEST_DATA_BASE_PATH}/has-keyword-with-whitespaces-only.csv`
+    );
+
+    expect(res.status).toBe(200);
+
+    expect(scraper.scrape).toHaveBeenCalledTimes(1);
+
+    expect(scraper.scrape).toBeCalledWith([
+      "macbook pro m2",
+      "airpods pro",
+      "best place to visit in vietnam",
+    ]);
+
+    expect(res.body).toEqual({
+      ok: true,
+    });
+  });
+
   it("request can go through when file satisfy all rules", async () => {
     const res = await sendUploadKeywordsRequest(
       `${TEST_DATA_BASE_PATH}/valid.csv`
     );
 
     expect(scraper.scrape).toHaveBeenCalledTimes(1);
+
+    expect(scraper.scrape).toBeCalledWith([
+      "best place to see in vietnam",
+      "apple vision pro",
+    ]);
+
     expect(uploadRepository.createNew).toHaveBeenCalledTimes(1);
 
     expect(res.status).toBe(200);
