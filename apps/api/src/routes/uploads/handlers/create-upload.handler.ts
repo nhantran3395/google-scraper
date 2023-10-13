@@ -21,7 +21,12 @@ export async function createNewUploadHandler(
     return;
   }
 
-  const keywords = file.buffer.toString().split("\n") || [];
+  const keywords =
+    file.buffer
+      .toString()
+      .split("\n")
+      .filter((keyword) => keyword.trim().length > 0) || []; // remove empty or only contains whitespaces keyword before processing
+
   const limit = configs.FILE_UPLOAD_MAX_KEYWORD_LIMIT;
 
   if (keywords.length > limit) {
@@ -34,8 +39,7 @@ export async function createNewUploadHandler(
   }
 
   try {
-    const keywordsWithAgents = scraper.prepareAgents(keywords);
-    const rawResults = await scraper.scrape(keywordsWithAgents);
+    const rawResults = await scraper.scrape(keywords);
 
     const processedResults = rawResults.map(resultProcessor.processResult);
     await uploadRepository.createNew(user.userId, file, processedResults);
