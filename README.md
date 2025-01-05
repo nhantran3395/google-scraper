@@ -1,11 +1,11 @@
 Hello there 👋 <br/>
-Welcome to my Scrapper repo. <br/>
+Welcome to my Scraper repo. <br/>
 
 ## Introduction
 
-Scrapper is a mini Google scraper app that let you upload a CSV file with keywords, and use those to scrape on Google search.
+Scraper is a mini Google Search scraper app that allows you to upload a CSV file with search keywords, and then use those to scrape the search result pages returned from Google.
 
-Below is a sample format of the CSV file:
+Below is a example of the CSV file:
 
 ```csv
 macbook air m2
@@ -21,15 +21,6 @@ The CSV can contain a maximum of 100 keywords and must be smaller than 1KB </br>
 ## Demo
 
 [Demo video](https://vimeo.com/871844582?share=copy)
-
-## Deployment
-
-The Web App and API are hosted on Vercel and Render
-
-| Component | Link                                          | Platform | Remark                  |
-|-----------|-----------------------------------------------|----------|-------------------------|
-| Web App   | https://scrapper-prod.vercel.app/uploads      | Vercel   | Next.js App             |
-| API       | https://scrapper-api-6n7e.onrender.com/status | Render   | Node.js and Express App |
 
 ## How to get started?
 
@@ -54,6 +45,7 @@ FILE_UPLOAD_MAX_SIZE=1024 #in bytes
 
 Note: 
 - By default, the Web run on port 3002 and API will run on port 5001
+- The API server need to whitelist the address of web app (http://localhost:3002)
 
 3. Install dependencies with NPM (run at root folder)
 ```bash
