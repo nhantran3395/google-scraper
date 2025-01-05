@@ -3,7 +3,7 @@ Welcome to my Scraper repo. <br/>
 
 ## Introduction
 
-Scraper is a mini Google Search scraper app that allows you to upload a CSV file with search keywords, and then use those to scrape the search result pages returned from Google.
+Scraper is a mini app that allows you to upload a CSV file with search keywords, and then use those to scrape the search result pages returned from Google.
 
 Below is a example of the CSV file:
 
@@ -77,8 +77,8 @@ At the moment, application can handle only upto 10 keywords in 1 file
 
 #### Schema design
 
-The schema design diagram can be found in [Scrapper dbdiagram.io](https://dbdiagram.io/d/Scrapper-651796d5ffbf5169f0c55e12)
+The schema design diagram can be found in [Scraper schema diagram](https://dbdiagram.io/d/Scrapper-651796d5ffbf5169f0c55e12)
 
 #### API specifications
 
-API specifications can be found at [Wiki - API Specifications](https://github.com/nhantran3395/scrapper/wiki/API-specifications)
+API specifications can be found at [Wiki - Scraper API Specifications](https://github.com/nhantran3395/scrapper/wiki/API-specifications)
