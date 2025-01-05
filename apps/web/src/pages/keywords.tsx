@@ -1,5 +1,5 @@
-import KeywordsPageContainer from "../components/keywords";
+import KeywordsContainer from "@/components/keywords-container";
 
 export default function KeywordsPage() {
-  return <KeywordsPageContainer />;
+  return <KeywordsContainer />;
 }

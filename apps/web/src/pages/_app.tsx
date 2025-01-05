@@ -1,21 +1,21 @@
 import type { AppProps } from "next/app";
 import Head from "next/head";
 
-import PageLayout from "../components/common/layout";
+import UnauthenticatedLayout from "@/layout/unauthenticated-layout";
 
-import "../styles/globals.css";
+import "@/styles/globals.css";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <title>Scrapper</title>
-        <meta name="description" content="Scrapper Web" />
+        <title>Scraper</title>
+        <meta name="description" content="Scraper Web" />
         <link rel="stylesheet" href={"https://rsms.me/inter/inter.css"} />
       </Head>
-      <PageLayout>
+      <UnauthenticatedLayout>
         <Component {...pageProps} />
-      </PageLayout>
+      </UnauthenticatedLayout>
     </>
   );
 }

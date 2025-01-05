@@ -3,12 +3,9 @@
   "extends": "tsconfig/nextjs.json",
   "compilerOptions": {
     "outDir": "dist",
-    "baseUrl": "./",
+    "baseUrl": "./src",
     "paths": {
-      "lib/*": ["src/lib/*"],
-      "components/*": ["src/components/*"],
-      "types": ["src/types/index.ts"],
-      "configs": ["src/configs.ts"],
+      "@/*": ["./*"]
     },
     "plugins": [
       {

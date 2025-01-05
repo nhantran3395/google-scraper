@@ -1,4 +1,4 @@
-import type { User } from "../types";
+import type { User } from "@/models/user.model";
 
 const Key = {
   USER_INFO: "user_info",
